@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For Thami</title>
+    <style>
+        body {
+            background-color: #eceff1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow: hidden;
+        }
+
+        /* The Envelope/Cover */
+        #card-container {
+            perspective: 1000px;
+            cursor: pointer;
+            z-index: 10;
+        }
+
+        .cover {
+            width: 300px;
+            height: 200px;
+            background-color: #7a8d91;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            border-radius: 10px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+            transition: transform 0.6s, opacity 0.4s;
+            color: white;
+        }
+
+        .cover h2 { margin: 0; font-weight: 300; }
+        .open-btn {
+            margin-top: 15px;
+            padding: 8px 20px;
+            background: white;
+            color: #7a8d91;
+            border: none;
+            border-radius: 20px;
+            font-weight: bold;
+            text-transform: uppercase;
+            font-size: 12px;
+        }
+
+        /* The Hidden Message */
+        #message-card {
+            display: none;
+            width: 320px;
+            padding: 30px;
+            background: white;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            animation: fadeIn 1.5s ease-in-out forwards;
+        }
+
+        h1 { color: #444; font-size: 22px; }
+        p { color: #666; line-height: 1.6; font-size: 15px; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Floating Emojis */
+        .emoji {
+            position: absolute;
+            bottom: -50px;
+            font-size: 24px;
+            user-select: none;
+            z-index: 1;
+            animation: floatUp 4s linear infinite;
+        }
+
+        @keyframes floatUp {
+            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="card-container" onclick="openCard()">
+        <div class="cover" id="cover">
+            <h2>For Thami</h2>
+            <button class="open-btn">Open Me</button>
+        </div>
+
+        <div id="message-card">
+            <h1>I'm Sorry, Thami</h1>
+            <p>
+                I've been acting out of line lately and I know I've been rude to you. 
+                I hate that I treated you that way.
+            </p>
+            <p>
+                You mean a lot to me, and I want to do better. I'm truly sorry.
+            </p>
+            <p style="font-style: italic; margin-top: 20px;">— [Keitu]</p>
+        </div>
+    </div>
+
+    <script>
+        function openCard() {
+            // Hide cover
+            document.getElementById('cover').style.display = 'none';
+            // Show message
+            document.getElementById('message-card').style.display = 'block';
+            
+            // Start emoji rain
+            setInterval(createEmoji, 300);
+        }
+
+        function createEmoji() {
+            const emojis = ['😔', '😟', '😞', '😰', '💔', '🙏'];
+            const e = document.createElement('div');
+            e.classList.add('emoji');
+            e.innerText = emojis[Math.floor(Math.random() * emojis.length)];
+            e.style.left = Math.random() * 100 + "vw";
+            e.style.animationDuration = (Math.random() * 2 + 3) + "s"; 
+            
+            document.body.appendChild(e);
+
+            setTimeout(() => {
+                e.remove();
+            }, 4000);
+        }
+    </script>
+</body>
+</html>
